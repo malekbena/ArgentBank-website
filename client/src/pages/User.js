@@ -1,8 +1,33 @@
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addUser } from "../redux/userSlice"
+import Axios from "axios"
+
 const User = () => {
-    return (
-        <main className="main bg-dark">
+  const token = useSelector(state => state.auth.token)
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      Axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then(res => {
+        dispatch(addUser(res.data.body))
+        console.log(res.data.body)
+      }).catch(err => {
+        console.log(err)
+      })
+    
+  }, [])
+
+  return (
+    <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />
+        {user.firstName} {user.lastName}!
+        </h1>
         <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
@@ -37,7 +62,7 @@ const User = () => {
         </div>
       </section>
     </main>
-    )
+  )
 }
 
 export default User
