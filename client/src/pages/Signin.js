@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Axios from 'axios'
-import { login } from '../redux/authSlice'
+import { setLogin } from '../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {
@@ -21,7 +21,8 @@ const Signin = () => {
                 'Content-Type': 'application/json'
             }
         }).then(res => {
-            dispatch(login(res.data.body.token))
+            localStorage.setItem('token', res.data.body.token)
+            dispatch(setLogin(res.data.body.token))
             navigate('/user')
         }).catch(err => {
             console.log(err)
