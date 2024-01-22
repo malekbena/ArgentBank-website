@@ -26,7 +26,7 @@ const User = () => {
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br />
-          {user.firstName} {user.lastName}!
+          {user.profile.firstName} {user.profile.lastName}!
         </h1>
         <button className="edit-button">Edit Name</button>
       </div>

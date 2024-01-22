@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Axios from 'axios'
-import { setLogin } from '../redux/authSlice'
+import { setLogin } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {

@@ -1,26 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/argentBankLogo.png";
 import { useSelector, useDispatch } from "react-redux";
-import { setLogout } from '../redux/authSlice'
-import { useEffect } from "react";
+import { setLogout } from '../redux/userSlice'
 
 const Navbar = () => {
     const user = useSelector(state => state.user)
-    const isLogged = useSelector(state => state.auth.isLogged)
+    const isLogged = useSelector(state => state.user.isLogged)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    
-    useEffect(() => {
-        if (!isLogged) {
-            dispatch(setLogout())
-        }
-    }, [dispatch, isLogged])
 
     const signout = (e) => {
         e.preventDefault()
         dispatch(setLogout())
         navigate('/')
     }
+
     return (
         <nav className="main-nav">
             <Link className="main-nav-logo" to="/">
@@ -37,7 +31,7 @@ const Navbar = () => {
                         <>
                             <Link className="main-nav-item" to="/user">
                                 <i className="fa fa-user-circle"></i>
-                                {user && `${user.firstName}` }
+                                {user && `${user.profile.firstName}` }
                             </Link>
                             <Link className="main-nav-item" onClick={e => signout(e)} to="/">
                                 <i className="fa fa-user-circle"></i>
