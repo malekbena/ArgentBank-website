@@ -11,20 +11,15 @@ const User = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!token) {
-      navigate('/')
-    } else {
-      Axios.post('http://localhost:3001/api/v1/user/profile', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }).then(res => {
-        dispatch(setUser(res.data.body))
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-
+    Axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(res => {
+      dispatch(setUser(res.data.body))
+    }).catch(err => {
+      console.log(err)
+    })
   }, [dispatch, token, navigate])
 
   return (

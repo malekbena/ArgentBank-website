@@ -5,7 +5,8 @@ const checkToken = () => {
 }
 
 const initialState = {
-    token: checkToken()
+    token: checkToken(),
+    isLogged: false
 }
 
 export const authSlice = createSlice({
@@ -14,10 +15,12 @@ export const authSlice = createSlice({
 
     reducers: {
         setLogin(state, action) {
-            state.token = action.payload;
+            state.token = action.payload
+            state.isLogged = true
         },
         setLogout(state) {
             state.token = null
+            state.isLogged = false
             localStorage.removeItem('token')
         }
     }
