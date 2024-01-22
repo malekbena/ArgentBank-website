@@ -5,16 +5,16 @@ import { setLogout } from '../redux/authSlice'
 import { useEffect } from "react";
 
 const Navbar = () => {
-    const token = localStorage.getItem('token')
     const user = useSelector(state => state.user)
+    const isLogged = useSelector(state => state.auth.isLogged)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
     useEffect(() => {
-        if (!token) {
+        if (!isLogged) {
             dispatch(setLogout())
         }
-    }, [dispatch, token])
+    }, [dispatch, isLogged])
 
     const signout = (e) => {
         e.preventDefault()
@@ -33,11 +33,11 @@ const Navbar = () => {
             </Link>
             <div>
                 {
-                    token ? (
+                    isLogged ? (
                         <>
                             <Link className="main-nav-item" to="/user">
                                 <i className="fa fa-user-circle"></i>
-                                {user ? `${user.firstName}` : 'loading...'}
+                                {user && `${user.firstName}` }
                             </Link>
                             <Link className="main-nav-item" onClick={e => signout(e)} to="/">
                                 <i className="fa fa-user-circle"></i>
