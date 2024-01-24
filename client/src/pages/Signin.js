@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import Axios from 'axios'
-import { setLogin } from '../redux/userSlice'
+import { userLogin, getProfile } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {
@@ -16,17 +15,16 @@ const Signin = () => {
             email: username,
             password: password
         }
-        Axios.post('http://localhost:3001/api/v1/user/login', user, {
-            headers: {
-                'Content-Type': 'application/json'
+        dispatch(userLogin(user)).then((res) => {
+            if (res.payload) {
+                dispatch(getProfile(res.payload.token)).then((res) => {
+                    if (res.payload) {
+                        navigate('/user')
+                    }
+                })
             }
-        }).then(res => {
-            localStorage.setItem('token', res.data.body.token)
-            dispatch(setLogin(res.data.body.token))
-            navigate('/user')
-        }).catch(err => {
-            console.log(err)
         })
+
     }
 
     return (

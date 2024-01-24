@@ -1,26 +1,7 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setUser } from "../redux/userSlice"
-import Axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useSelector} from "react-redux"
 
 const User = () => {
-  const token = localStorage.getItem('token')
   const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    Axios.post('http://localhost:3001/api/v1/user/profile', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(res => {
-      dispatch(setUser(res.data.body))
-    }).catch(err => {
-      console.log(err)
-    })
-  }, [dispatch, token, navigate])
 
   return (
     <main className="main bg-dark">

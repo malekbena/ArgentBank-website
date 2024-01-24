@@ -1,52 +1,73 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Axios from "axios";
 
 const checkToken = () => {
     return localStorage.getItem('token') || null
 }
 
+export const getProfile = createAsyncThunk(
+    'user/getProfile',
+    async (token) => {
+        const response = await Axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return response.data.body
+
+    }
+)
+
+export const userLogin = createAsyncThunk(
+    'user/userLogin',
+    async (user) => {
+        const response = await Axios.post('http://localhost:3001/api/v1/user/login', user, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return response.data.body
+    }
+)
+
 const initialState = {
     token: checkToken(),
     isLogged: checkToken() ? true : false,
-    profile: {
-        email: "",
-        firstName: "",
-        lastName: "",
-        username: "",
-    }
+    profile: {}
 }
-
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setLogin(state, action) {
-            state.token = action.payload
-            state.isLogged = true
-        },
         setLogout(state) {
             state.token = null
             state.isLogged = false
-            state.profile = {
-                email: "",
-                firstName: "",
-                lastName: "",
-                username: "",
-            }
-
+            state.profile = {}
             localStorage.removeItem('token')
-        },
-        setUser(state, action) {
-            state.profile.email = action.payload.email;
-            state.profile.firstName = action.payload.firstName;
-            state.profile.lastName = action.payload.lastName;
-            state.profile.username = action.payload.username;
-        },
-        editUser(state, action) {
-            state.username = action.payload.username;
         }
+        
+    }, extraReducers(builder) {
+        builder.addCase(userLogin.fulfilled, (state, action) => {
+            state.isLogged = true
+            state.token = action.payload.token
+            localStorage.setItem('token', action.payload.token)
+        })
+        builder.addCase(userLogin.rejected, (state, action) => {
+            state.isLogged = false
+            state.token = null
+            console.log(action.error.message)
+        })
+        builder.addCase(getProfile.fulfilled, (state, action) => {
+            state.profile = action.payload
+            console.log(action.payload)
+        })
+        builder.addCase(getProfile.rejected, (state, action) => {
+            state.profile = {}
+            console.log(action.error.message)
+        })
     }
 })
 
-export const { setLogin, setLogout, setUser, editUser } = userSlice.actions
+export const { setLogout, editUser } = userSlice.actions
 export default userSlice
