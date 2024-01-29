@@ -4,13 +4,12 @@ import { useDispatch } from "react-redux";
 import { getProfile } from "../redux/userSlice";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { checkToken } from "../utils";
 
 const Layout = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            dispatch(getProfile(localStorage.getItem('token')))
-        }
+        checkToken() && dispatch(getProfile(localStorage.getItem('token')))
     }, [dispatch])
     return (
         <>

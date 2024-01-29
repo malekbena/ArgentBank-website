@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "axios";
-
-const checkToken = () => {
-    return localStorage.getItem('token') || null
-}
+import { checkToken } from "../utils";
 
 export const getProfile = createAsyncThunk(
     'user/getProfile',
@@ -31,8 +28,8 @@ export const userLogin = createAsyncThunk(
 )
 
 const initialState = {
-    token: checkToken(),
-    isLogged: checkToken() ? true : false,
+    token: checkToken() ? localStorage.getItem('token') : null,
+    isLogged: checkToken(),
     profile: {}
 }
 
