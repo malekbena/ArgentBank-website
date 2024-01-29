@@ -34,7 +34,7 @@ const Navbar = () => {
                                 {user && `${user.profile.firstName}` }
                             </Link>
                             <Link className="main-nav-item" onClick={e => signout(e)} to="/">
-                                <i className="fa fa-user-circle"></i>
+                                <i className="fa fa-sign-out"></i>
                                 Sign Out
                             </Link>
                         </>
