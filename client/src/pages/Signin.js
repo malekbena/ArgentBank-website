@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { userLogin, getProfile } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
+import Button from '../components/Button'
 
 const Signin = () => {
     const [username, setUsername] = useState('')
@@ -45,7 +46,7 @@ const Signin = () => {
                         <input type="checkbox" id="remember-me" />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    <button className="sign-in-button" onClick={e => handleSubmit(e)}>Sign In</button>
+                    <Button className={'classic-button'} click={e=>handleSubmit(e)} text='Sign In' />
                 </form>
             </section>
         </main>

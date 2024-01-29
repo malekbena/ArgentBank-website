@@ -1,4 +1,5 @@
-import { useSelector} from "react-redux"
+import { useSelector } from "react-redux"
+import Button from "../components/Button"
 
 const User = () => {
   const user = useSelector(state => state.user)
@@ -9,7 +10,7 @@ const User = () => {
         <h1>Welcome back<br />
           {user.profile.firstName} {user.profile.lastName}!
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <Button className={'edit-button'} text='Edit Name' />
       </div>
       <h2 className="sr-only">Accounts</h2>
       <section className="account">
@@ -19,7 +20,7 @@ const User = () => {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+        <Button className={'classic-button transaction-button'} text='View transactions' />
         </div>
       </section>
       <section className="account">
@@ -29,7 +30,7 @@ const User = () => {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+        <Button className={'classic-button transaction-button'} text='View transactions' />
         </div>
       </section>
       <section className="account">
@@ -39,7 +40,7 @@ const User = () => {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+        <Button className={'classic-button transaction-button'} text='View transactions' />
         </div>
       </section>
     </main>
