@@ -31,7 +31,7 @@ const Navbar = () => {
                         <>
                             <Link className="main-nav-item" to="/user">
                                 <i className="fa fa-user-circle"></i>
-                                {user && `${user.profile.firstName}` }
+                                {user && `${user.profile.userName}` }
                             </Link>
                             <Link className="main-nav-item" onClick={e => signout(e)} to="/">
                                 <i className="fa fa-sign-out"></i>
