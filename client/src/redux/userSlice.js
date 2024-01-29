@@ -27,6 +27,21 @@ export const userLogin = createAsyncThunk(
     }
 )
 
+export const userEdit = createAsyncThunk(
+    'user/userEdit',
+    async (userName) => {
+        const token = localStorage.getItem('token')
+        const response = await Axios.put('http://localhost:3001/api/v1/user/profile', userName, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+
+            }
+        })
+        return response.data.body
+    }
+)
+
 const initialState = {
     token: checkToken() ? localStorage.getItem('token') : null,
     isLogged: checkToken(),
@@ -57,10 +72,15 @@ const userSlice = createSlice({
         })
         builder.addCase(getProfile.fulfilled, (state, action) => {
             state.profile = action.payload
-            console.log(action.payload)
         })
         builder.addCase(getProfile.rejected, (state, action) => {
             state.profile = {}
+            console.log(action.error.message)
+        })
+        builder.addCase(userEdit.fulfilled, (state, action) => {
+            state.profile = action.payload
+        })
+        builder.addCase(userEdit.rejected, (state, action) => {
             console.log(action.error.message)
         })
     }
