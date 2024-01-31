@@ -101,14 +101,25 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transactions:
+  /user/transactions/{account}/{month}:
     get:
       security:
         - Bearer: []
       tags: 
         - User transactions module
+      parameters:
+        - name: month
+          in: path
+          description: Month
+          required: true
+          type: string
+        - name: account
+          in: path
+          description: Account
+          required: true
+          type: string
       summary: User Transactions list
-      description: Get all user transactions
+      description: Get user transactions of the current month
       produces:
         - application/json
       responses:
@@ -178,7 +189,7 @@ paths:
           description: Forbiden
         '500':
           description: Internal Server Error
-    put:
+    patch:
       security:
         - Bearer: []
       tags:
@@ -281,6 +292,12 @@ definitions:
         type: number
       category:
         type: string
+        enum:
+          - 'Food'
+          - 'Transport'
+          - 'Shopping'
+          - 'Bills'
+          - 'Others'
       note:
         type: string
   TransactionUpdate:
@@ -288,5 +305,11 @@ definitions:
     properties:
       category:
         type: string
+        enum:
+          - 'Food'
+          - 'Transport'
+          - 'Shopping'
+          - 'Bills'
+          - 'Others'
       note:
         type: string
