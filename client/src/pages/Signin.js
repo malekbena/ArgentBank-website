@@ -14,7 +14,7 @@ const Signin = () => {
     useEffect(() => {
         setTimeout(() => {
             setError(false)
-        }, 3000)
+        }, 5000)
     }, [error])
 
     const handleSubmit = (e) => {
@@ -30,6 +30,8 @@ const Signin = () => {
                         navigate('/user')
                     }
                 })
+            } else {
+                setError(true)
             }
         })
 
