@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/argentBankLogo.png";
+import logo from "../assets/argentBankLogo.avif";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from '../redux/userSlice'
 

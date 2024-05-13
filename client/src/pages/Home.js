@@ -1,8 +1,8 @@
 import FeatureItem from '../components/FeatureItem'
 
-import iconChat from '../assets/icon-chat.png'
-import iconMoney from '../assets/icon-money.png'
-import iconSecurity from '../assets/icon-security.png'
+import iconChat from '../assets/icon-chat.avif'
+import iconMoney from '../assets/icon-money.avif'
+import iconSecurity from '../assets/icon-security.avif'
 
 const features = [
     {
