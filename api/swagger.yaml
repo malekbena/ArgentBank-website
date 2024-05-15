@@ -207,7 +207,7 @@ paths:
           description: Update user transaction attributes
           required: true
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionUpdate'
       responses:
         '200':
           description: Transaction updated successully
